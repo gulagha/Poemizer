@@ -1,14 +1,16 @@
-import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 
 import Poem from '../components/Poem';
 import RandomButton from '../components/RandomButton';
+import ThemeContext from '../ThemeContext'
 import axios from 'axios'
 
 export default function RandomPoemScreen() {
     const [poems, setPoems] = useState([])
     const [counter, setCounter] = useState(1)
     const [loading, setLoading] = useState(false)
+    const {theme, setTheme} = useContext(ThemeContext)
 
     const getPoems = () => {
         setLoading(true);
@@ -22,9 +24,9 @@ export default function RandomPoemScreen() {
             })
     }
 
-    onPress = () => {
+    const onPress = () => {
         if (counter > 1) {
-            setLoading(true);
+            setLoading(true); 
             setCounter(counter - 1)
             setLoading(false);
         } else getPoems();
@@ -39,7 +41,7 @@ export default function RandomPoemScreen() {
     }, [loading])
 
     return (
-        <View style={styles.pageWrapper}>
+        <View style={ theme == "light" ? styles.pageWrapperLight : styles.pageWrapperDark}>
             <View style={styles.contentWrapper}>
                 { poems.length && !loading && poems[counter - 1]
                     ? <Poem 
@@ -58,17 +60,24 @@ export default function RandomPoemScreen() {
 }
 
 const styles = StyleSheet.create({
-    pageWrapper: {
+    pageWrapperLight: {
         flex: 1,
         width: "100%",
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
+        backgroundColor: "white"
+    },
+    pageWrapperDark: {
+        flex: 1,
+        width: "100%",
+        justifyContent: "flex-end",
+        backgroundColor: "black"
     },
     contentWrapper: {
-        marginTop: 0
+        flex: 1,
+        flexDirection: "column"
     },
     loading: {
-        width: "100%",
-        height: "100%",
+        flex: 1,
         justifyContent: "center",
         alignItems: "center",
         padding: 30

@@ -1,15 +1,15 @@
-import * as Haptics from 'expo-haptics';
-
-import {Animated, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {Animated, StyleSheet, TouchableOpacity} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
 import Svg, {Path} from 'react-native-svg';
 
 import { LinearGradient } from 'expo-linear-gradient';
+import ThemeContext from '../ThemeContext';
 
 export default function RandomButton({ loading, onPress }) {
 
     const [buttonLoading, setButtonLoading] = useState(true);
-    const [animation] = useState(new Animated.Value(0))
+    const [animation] = useState(new Animated.Value(0));
+    const {theme} = useContext(ThemeContext);
 
     const rotation = animation.interpolate({
       inputRange: [0, 1],
@@ -40,7 +40,9 @@ export default function RandomButton({ loading, onPress }) {
 
     return (
         <LinearGradient 
-        colors={['rgba(255,255,255,0)', 'rgba(255,255,255,0.8)','rgba(255,255,255,1)']} 
+        colors={theme == "light" 
+            ? ['rgba(255,255,255,0)', 'rgba(255,255,255,0.8)','rgba(255,255,255,1)'] 
+            : ['rgba(0,0,0,0)', 'rgba(0,0,0,0.8)','rgba(0,0,0,1)'] } 
         style={{position: "absolute", justifyContent: "center", alignItems: "center", width: "100%", height:"20%"}}>
             <TouchableOpacity onPress={() => refresh()} style={styles.button}>
                 <Animated.View style={{transform: [{rotate: rotation}]}}>

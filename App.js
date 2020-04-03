@@ -1,14 +1,16 @@
 import * as Font from 'expo-font';
 
 import { Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
 
 import { Ionicons } from '@expo/vector-icons';
 import RandomPoemScreen from './screens/RandomPoemScreen'
-import React from 'react';
 import { SplashScreen } from 'expo';
+import ThemeContext from './ThemeContext'
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
+  const [theme, setTheme] = useState("light")
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
@@ -38,9 +40,11 @@ export default function App(props) {
     return null;
   } else {
     return (
-      <View style={styles.container}>
-        <RandomPoemScreen/>
-      </View>
+      <ThemeContext.Provider value={{theme, setTheme}}>
+        <View style={styles.container}>
+          <RandomPoemScreen/>
+        </View>
+      </ThemeContext.Provider>
     );
   }
 }
