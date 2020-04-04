@@ -10,7 +10,7 @@ export default function RandomPoemScreen() {
     const [poems, setPoems] = useState([])
     const [counter, setCounter] = useState(1)
     const [loading, setLoading] = useState(false)
-    const {theme, setTheme} = useContext(ThemeContext)
+    const {theme} = useContext(ThemeContext)
 
     const getPoems = () => {
         setLoading(true);
@@ -50,7 +50,7 @@ export default function RandomPoemScreen() {
                         author={{name: poems[counter -1].poet.name, url: poems[counter -1].poet.url}} 
                         poem={poems[counter - 1].content}/>
                     : <View style={styles.loading}>
-                        <Text style={{color: "black", fontFamily: "random-regular"}}> Loading </Text>
+                        <Text style={{color: theme == "light" ? "black" : "white", fontFamily: "random-regular"}}> Loading </Text>
                     </View>}
             </View>
   

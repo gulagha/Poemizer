@@ -7,7 +7,7 @@ import Svg, {Circle, Line, Path} from 'react-native-svg';
 import ThemeContext from '../ThemeContext';
 
 export default function Poem ({poem, author, title, link}) {
-    const {theme, setTheme} = useContext(ThemeContext)
+    const {theme, storeTheme} = useContext(ThemeContext)
     const [fontSize, setFontSize] = useState(18);
     const [themeStyles, setThemeStyles] = useState(styles);
 
@@ -20,8 +20,8 @@ export default function Poem ({poem, author, title, link}) {
     return (
         <ScrollView style={{height: "100%"}}>
             <TouchableOpacity 
-                style={{marginTop: 30, alignItems:"flex-end", paddingRight: 20, backgroundColor: "transparent"}}
-                onPress={() => setTheme(theme=="light" ? "dark" : "light")}>
+                style={{marginTop: 45, alignItems:"flex-end", paddingRight: 20, backgroundColor: "transparent"}}
+                onPress={() => storeTheme(theme=="light" ? "dark" : "light")}>
                 {theme == "light"
                     ? <Svg width="32" height="32">
                         <Path 
@@ -46,7 +46,7 @@ export default function Poem ({poem, author, title, link}) {
                 }
             </TouchableOpacity>
             <View>
-                <Text selectable style={themeStyles.title}>{'\n\n' + title}</Text>
+                <Text selectable style={themeStyles.title}>{'\n' + title}</Text>
                 <Text onPress={() => WebBrowser.openBrowserAsync(author.url)} selectable style={themeStyles.author}>By {author.name}</Text>
             </View>
 
