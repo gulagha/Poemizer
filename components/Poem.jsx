@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   link: {
     ...commonStyles.placement,
     marginTop: 16,
-    marginBottom: 120,
+    marginBottom: 160,
     fontFamily: 'random-regular',
     fontSize: 18,
     color: '#ff8855',
