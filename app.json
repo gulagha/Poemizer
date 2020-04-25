@@ -29,6 +29,11 @@
     "android": {
       "package": "com.perfectrandomness.poemizer",
       "versionCode": 3
-    }
+    },
+    "androidNavigationBar": {
+     "visible": true,
+     "barStyle": "light-content",
+     "backgroundColor": "#000000"
+   }
   }
 }
